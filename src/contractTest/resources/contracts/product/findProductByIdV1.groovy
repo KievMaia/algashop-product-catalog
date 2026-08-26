@@ -13,7 +13,7 @@ Contract.make {
     response {
         status 200
         headers {
-            contentType'application/json'
+            contentType 'application/json'
         }
         body([
                 id: fromRequest().path(3),
@@ -23,7 +23,7 @@ Contract.make {
                 regularPrice: 1500.00,
                 salePrice: 1000.0,
                 inStock: true,
-                enable: true,
+                enabled: true,
                 category: [
                         id:  anyUuid(),
                         name: "Notebook"

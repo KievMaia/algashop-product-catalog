@@ -6,25 +6,24 @@ Contract.make {
     request {
         method POST()
         headers {
-            accept: 'application/json'
-            contentType: 'application/json'
+            accept 'application/json'
+            contentType 'application/json'
         }
-        urlPath("/api/v1/products") {
-            body([
-                    name        : "Notebook X11",
-                    brand       : "Deep Diver",
-                    regularPrice: 1500.00,
-                    salePrice   : 1000.00,
-                    enabled     : true,
-                    categoryId  : "f5ab7a1e-37da-41e1-892b-a1d38275c2f2",
-                    description : "A Gamer Notebook!"
-            ])
-        }
+        urlPath("/api/v1/products")
+        body([
+                name        : "Notebook X11",
+                brand       : "Deep Diver",
+                regularPrice: 1500.00,
+                salePrice   : 1000.00,
+                enabled     : true,
+                categoryId  : "f5ab7a1e-37da-41e1-892b-a1d38275c2f2",
+                description : "A Gamer Notebook!"
+        ])
     }
     response {
-        status: 201
+        status 201
         headers {
-            contentType: "application/json"
+            contentType "application/json"
         }
         body([
                 id: anyUuid(),
@@ -34,7 +33,7 @@ Contract.make {
                 regularPrice: 1500.00,
                 salePrice   : 1000.00,
                 inStock: false,
-                enable: true,
+                enabled: true,
                 category  : [
                         id: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2",
                         name: "Notebook"
