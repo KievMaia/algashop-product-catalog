@@ -1,5 +1,6 @@
 package com.algaworks.algashop.product_catalog.presentation;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDetailOutput crete(@RequestBody ProductInput input) {
+    public ProductDetailOutput crete(@RequestBody @Valid ProductInput input) {
         return ProductDetailOutput.builder()
                 .id(UUID.randomUUID())
                 .addedAt(OffsetDateTime.now())
