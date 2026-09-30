@@ -1,5 +1,6 @@
 package com.algaworks.algashop.product_catalog.contract.base;
 
+import com.algaworks.algashop.product_catalog.application.ResourceNotFoundException;
 import com.algaworks.algashop.product_catalog.application.product.management.ProductInput;
 import com.algaworks.algashop.product_catalog.application.product.management.ProductManagementApplicationService;
 import com.algaworks.algashop.product_catalog.application.product.query.PageModel;
@@ -36,6 +37,7 @@ class ProductBase {
     private ProductManagementApplicationService productManagementApplicationService;
 
     public static final UUID validProductId = UUID.fromString("019dbc11-088b-7476-8dc0-6cf690b8624b");
+    public static final UUID invalidProductId = UUID.fromString("d70864cd-671c-4ec2-a3d2-0cc8f5dc55ba");
     public static final UUID createdProductId = UUID.fromString("7d21f1c6-392f-4a31-ac7b-e927ba1e990e");
 
     @BeforeEach
@@ -45,9 +47,15 @@ class ProductBase {
                 .build());
         RestAssuredMockMvc.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        mockValidOrderFindById();
+        mockValidProductFindById();
         mockFilterProducts();
         mockCreateProduct();
+        mockInvalidProductFindById();
+    }
+
+    private void mockInvalidProductFindById() {
+        when(productQueryService.findById(invalidProductId))
+                .thenThrow(new ResourceNotFoundException());
     }
 
     private void mockCreateProduct() {
@@ -76,7 +84,7 @@ class ProductBase {
                 });
     }
 
-    private void mockValidOrderFindById() {
+    private void mockValidProductFindById() {
         when(productQueryService.findById(validProductId))
                 .thenReturn(ProductDetailOutputTestDataBuilder.aProduct()
                         .id(validProductId)
