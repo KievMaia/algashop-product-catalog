@@ -16,7 +16,7 @@ Contract.make {
                         stub(nonBlank())
                 ),
                 brand       : value(
-                        test("Deep Diver"),
+                        test("Deep Driver"),
                         stub(nonBlank())
                 ),
                 regularPrice: value(
