@@ -22,6 +22,8 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = ProductController.class)
@@ -51,6 +53,20 @@ class ProductBase {
         mockFilterProducts();
         mockCreateProduct();
         mockInvalidProductFindById();
+        mockUpdateProduct();
+        mockDisableProduct();
+    }
+
+    private void mockUpdateProduct() {
+        doThrow(new ResourceNotFoundException())
+                .when(productManagementApplicationService)
+                .update(eq(invalidProductId), any(ProductInput.class));
+    }
+
+    private void mockDisableProduct() {
+        doThrow(new ResourceNotFoundException())
+                .when(productManagementApplicationService)
+                .disable(invalidProductId);
     }
 
     private void mockInvalidProductFindById() {
