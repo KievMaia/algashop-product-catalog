@@ -10,8 +10,14 @@ import com.algaworks.algashop.product_catalog.application.product.query.ProductQ
 import com.algaworks.algashop.product_catalog.presentation.ProductController;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.restdocs.operation.preprocess.Preprocessors;
+import org.springframework.restdocs.templates.TemplateFormats;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,8 +31,10 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 
 @WebMvcTest(controllers = ProductController.class)
+@ExtendWith(RestDocumentationExtension.class)
 class ProductBase {
 
     @Autowired
@@ -43,8 +51,13 @@ class ProductBase {
     public static final UUID createdProductId = UUID.fromString("7d21f1c6-392f-4a31-ac7b-e927ba1e990e");
 
     @BeforeEach
-    void setUp() {
+    void setUp(RestDocumentationContextProvider documentationContextProvider) {
         RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(context)
+                        .apply(documentationConfiguration(documentationContextProvider)
+                                .snippets().withTemplateFormat(TemplateFormats.asciidoctor())
+                                .and().operationPreprocessors()
+                                .withResponseDefaults(Preprocessors.prettyPrint()))
+                        .alwaysDo(MockMvcRestDocumentation.document("{ClassName}/{methodName}"))
                 .defaultResponseCharacterEncoding(StandardCharsets.UTF_8)
                 .build());
         RestAssuredMockMvc.enableLoggingOfRequestAndResponseIfValidationFails();
