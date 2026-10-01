@@ -1,0 +1,81 @@
+ifndef::snippets[]
+:snippets: ../generated-snippets
+endif::snippets[]
+
+= Product Catalog API
+
+== Produtos
+
+=== Criar produto
+
+`POST /api/v1/products`
+
+==== Requisição
+
+include::{snippets}/ProductTest/validate_createProductV1/http-request.adoc[]
+
+==== Corpo da requisição
+
+include::{snippets}/ProductTest/validate_createProductV1/request-body.adoc[]
+
+==== Resposta
+
+include::{snippets}/ProductTest/validate_createProductV1/http-response.adoc[]
+
+=== Buscar produto por ID
+
+`GET /api/v1/products/{productId}`
+
+==== Requisição
+
+include::{snippets}/ProductTest/validate_findProductByIdV1/http-request.adoc[]
+
+==== Resposta
+
+include::{snippets}/ProductTest/validate_findProductByIdV1/http-response.adoc[]
+
+=== Listar produtos
+
+`GET /api/v1/products?size=10&number=0`
+
+==== Requisição
+
+include::{snippets}/ProductTest/validate_findProductsV1/http-request.adoc[]
+
+==== Resposta
+
+include::{snippets}/ProductTest/validate_findProductsV1/http-response.adoc[]
+
+=== Atualizar produto
+
+`PUT /api/v1/products/{productId}`
+
+==== Requisição
+
+include::{snippets}/ProductTest/validate_updateProductV1/http-request.adoc[]
+
+==== Resposta
+
+include::{snippets}/ProductTest/validate_updateProductV1/http-response.adoc[]
+
+=== Remover produto
+
+`DELETE /api/v1/products/{productId}`
+
+==== Requisição
+
+include::{snippets}/ProductTest/validate_deleteProductV1/http-request.adoc[]
+
+==== Resposta
+
+include::{snippets}/ProductTest/validate_deleteProductV1/http-response.adoc[]
+
+== Erros
+
+=== Campos inválidos (400)
+
+include::{snippets}/ProductTest/validate_createProductV1BadRequest/http-response.adoc[]
+
+=== Recurso não encontrado (404)
+
+include::{snippets}/ProductTest/validate_productByIdV1NotFound/http-response.adoc[]
