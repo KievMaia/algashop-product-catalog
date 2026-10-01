@@ -1,5 +1,7 @@
 package com.algaworks.algashop.product_catalog;
 
+import com.algaworks.algashop.product_catalog.application.category.management.CategoryManagementService;
+import com.algaworks.algashop.product_catalog.application.category.query.CategoryQueryService;
 import com.algaworks.algashop.product_catalog.application.product.management.ProductManagementApplicationService;
 import com.algaworks.algashop.product_catalog.application.product.query.ProductQueryService;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,12 @@ class ProductCatalogApplicationTests {
 
 	@MockitoBean
 	private ProductManagementApplicationService productManagementApplicationService;
+
+	@MockitoBean
+	private CategoryQueryService categoryQueryService;
+
+	@MockitoBean
+	private CategoryManagementService categoryManagementService;
 
 	@Test
 	void contextLoads() {
